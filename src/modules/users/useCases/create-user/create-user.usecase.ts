@@ -1,13 +1,9 @@
 import { CustomError } from "../../../../errors/custom.error";
-import { ParameterRequiredError } from "../../../../errors/parameter-required.error";
-import { IPasswordCrypto } from "../../../../infra/shared/crypto/password.crypto";
+import { User } from "../../entities/user.entity";
+import { IUserRepository } from "../../repositories/user.repository";
+import { UserRequest } from "./create-user.dto";
 
-type UserRequest = {
-    id:number,
-    name: string,
-    email: string,
-    password: string,
-}
+
 
 export class CreateUserUseCase {
    
@@ -19,7 +15,7 @@ export class CreateUserUseCase {
     async execute (data: UserRequest){
 
     
-        const user = await User.create(data);
+      
 
         const existUser = await this.userRepository.findByEmail(data.email);
 
@@ -27,7 +23,7 @@ export class CreateUserUseCase {
             throw new CustomError("Usuário already exists",400,'USER_EXISTS_ERROR');
         }
       
-    
+        const user = new User(data);
         const userCreated = await this.userRepository.save(user);
 
         return userCreated
