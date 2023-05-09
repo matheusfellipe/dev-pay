@@ -1,7 +1,7 @@
-export type UserDTO = {
+export type SellerRequest = {
     id:number,
     name: string,
-    cpf:string
+    cnpj:string
     email: string,
     password: string,
 }

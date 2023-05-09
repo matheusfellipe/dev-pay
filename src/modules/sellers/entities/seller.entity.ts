@@ -1,25 +1,25 @@
 import { randomUUID } from 'crypto'
 
-type IUser = {
+type ISeller = {
     name:string
     email:string
     password:string
-    cpf:string
+    cnpj:string
 }
 
-export class User {
+export class Seller {
    
   public readonly id: string;
 
   public name: string;
   public email: string;
-  public cpf: string
+  public cnpj: string
   public password: string;
 
-  constructor(props: IUser) {
+  constructor(props: ISeller) {
    this.name = props.name
    this.email = props.email
-   this.cpf = props.cpf
+   this.cnpj = props.cnpj
    this.password = props.password
    this.id = randomUUID()
    

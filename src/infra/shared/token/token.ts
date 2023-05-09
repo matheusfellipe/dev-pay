@@ -1,10 +1,11 @@
-import { user,Seller } from "@prisma/client";
+
+import { User } from "../../../modules/users/entities/user.entity";
 
 export type TokerUser = {
     sub:string
 }
 
 export interface IToken {
-    create(user:user|Seller):string
+    create(user:User):string
     validate(token:string):TokerUser|null
 }
