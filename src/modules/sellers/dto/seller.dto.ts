@@ -1,4 +1,4 @@
-export type SellerRequest = {
+export type SellerDTO = {
     id:number,
     name: string,
     cnpj:string

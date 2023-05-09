@@ -17,6 +17,7 @@ model User {
   email String
   cpf String
   password String
+  checkout Checkout[]
   createdAt DateTime @default(now())
 }
 
@@ -26,5 +27,20 @@ model Seller {
   email String
   cnpj String
   password String
+  checkout Checkout[]
+createdAt DateTime @default(now())
+}
+
+model Checkout {
+  id String @id @default(uuid())
+  price Float?
+  description String
+  card_number String
+  card_owner String
+  card_expiring_date DateTime
+  seller Seller? @relation(fields: [sellerId],references: [id])
+  sellerId String
+  user User? @relation(fields: [userId],references: [id])
+  userId String
 createdAt DateTime @default(now())
 }

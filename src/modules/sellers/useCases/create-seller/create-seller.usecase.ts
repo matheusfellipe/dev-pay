@@ -1,7 +1,7 @@
 import { CustomError } from "../../../../errors/custom.error";
 import { Seller } from "../../entities/seller.entity";
 import { ISellerRepository } from "../../repositories/seller.repository";
-import { SellerRequest } from "./create-seller.dto";
+import { SellerDTO } from "../../dto/seller.dto";
 
 
 
@@ -14,7 +14,7 @@ export class CreateSellerUseCase {
     }
 
 
-    async execute (data: SellerRequest){
+    async execute (data: SellerDTO){
 
     
       

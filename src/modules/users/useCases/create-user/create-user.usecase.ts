@@ -1,7 +1,7 @@
 import { CustomError } from "../../../../errors/custom.error";
 import { User } from "../../entities/user.entity";
 import { IUserRepository } from "../../repositories/user.repository";
-import { UserRequest } from "./create-user.dto";
+import { UserDTO } from "../../dto/create-user.dto";
 
 
 
@@ -12,7 +12,7 @@ export class CreateUserUseCase {
     }
 
 
-    async execute (data: UserRequest){
+    async execute (data: UserDTO){
 
     
       
