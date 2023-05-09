@@ -4,11 +4,11 @@ import { createUserController } from "../modules/users/useCases/create-user";
 const userRouter = Router();
 
 
-userRouter.post('/signin',async (request,response)=>{
+userRouter.post('/login',async (request,response)=>{
    await authenticateUserController.handle(request,response)
 })
 
-userRouter.post('/signup',async (request,response)=>{
+userRouter.post('/users',async (request,response)=>{
    await createUserController.handle(request,response)
 })
 
