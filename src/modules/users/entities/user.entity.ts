@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto'
+import { generateUUID } from '../../../utils/generateUUID'
 
 type IUser = {
     name:string
@@ -21,7 +21,7 @@ export class User {
    this.email = props.email
    this.cpf = props.cpf
    this.password = props.password
-   this.id = randomUUID()
+   this.id = generateUUID()
    
   }
 }

@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { generateUUID } from "../../../utils/generateUUID";
 
 export type StatusProps = 'pending'|'paid'
 
@@ -27,7 +28,7 @@ export class Payables {
     this.type_payment = props.type_payment;
     this.balance = props.balance;
     this.checkoutId = props.checkoutId;
-    this.id = randomUUID();
+    this.id = generateUUID();
     this.sellerId = props.sellerId;
    
   }

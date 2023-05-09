@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import { generateUUID } from "../../../utils/generateUUID";
 
 export type CheckoutProps = {
   price: number;
@@ -31,7 +31,7 @@ export class Checkout {
     this.card_number = props.card_number;
     this.card_expiring_date = props.card_expiring_date;
     this.cvv = props.cvv;
-    this.id = randomUUID();
+    this.id = generateUUID();
     this.userId = props.userId;
     this.sellerId = props.sellerId;
     this.createdAt = props.createdAt
