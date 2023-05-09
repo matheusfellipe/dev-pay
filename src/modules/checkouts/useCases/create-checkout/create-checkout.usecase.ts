@@ -20,7 +20,7 @@ export type CreateCheckoutRequest = {
 
 export class CreateCheckoutUseCase {
     constructor(
-        private useRepository:IUserRepository,
+        private userRepository:IUserRepository,
         private sellerRepository:ISellerRepository,
         private checkoutRepository: ICheckoutRepository
     ){}
@@ -28,7 +28,7 @@ export class CreateCheckoutUseCase {
     async execute(data:CreateCheckoutRequest){
         const checkout = new Checkout(data);
 
-        const user = await this.useRepository.findById(data.userId)
+        const user = await this.userRepository.findById(data.userId)
 
         const seller = await this.sellerRepository.findById(data.sellerId);
 

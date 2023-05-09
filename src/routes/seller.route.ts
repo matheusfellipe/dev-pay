@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createSellerController } from '../modules/sellers/useCases'
+import { createSellerController } from '../modules/sellers/useCases/create-seller'
 
 const sellerRouter = Router()
 

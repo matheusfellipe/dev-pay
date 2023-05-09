@@ -1,5 +1,5 @@
-import { SellerPrismaRepository } from "../repositories/implementations/seller.prisma.repository";
-import { CreateSellerController } from "./create-seller/create-seller.controller";
+import { SellerPrismaRepository } from "../../repositories/implementations/seller.prisma.repository";
+import { CreateSellerController } from "./create-seller.controller";
 
 
 const sellerPrismaRepository = new SellerPrismaRepository();
