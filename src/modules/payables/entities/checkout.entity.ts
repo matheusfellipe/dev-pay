@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 
-export type StatusProps = 'pending'|'succeeded'
+export type StatusProps = 'pending'|'paid'
 
 export type PayablesProps = {
   status: StatusProps;

@@ -10,7 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+enum PayableStatus {
+  pending
+  paid
+}
 model User {
   id String @id @default(uuid())
   name String
@@ -28,6 +31,7 @@ model Seller {
   cnpj String
   password String
   checkout Checkout[]
+  payable Payable[]
 createdAt DateTime @default(now())
 }
 
@@ -42,5 +46,19 @@ model Checkout {
   sellerId String
   user User? @relation(fields: [userId],references: [id])
   userId String
+  payable Payable[]
 createdAt DateTime @default(now())
+}
+
+
+model Payable {
+  id String @id @default(uuid())
+  status PayableStatus @default(pending)
+  payment_date DateTime
+  type_payment String
+  balance Float?
+  seller Seller? @relation(fields: [sellerId],references: [id])
+  sellerId String
+  checkout Checkout? @relation(fields: [checkoutId],references: [id])
+  checkoutId String
 }
