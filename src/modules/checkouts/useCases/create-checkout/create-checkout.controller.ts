@@ -27,12 +27,12 @@ export class CreateCheckoutController{
         const doctorSchema = z.object({
             price:z.number(),
             description:z.string(),
-            card_number:z.string(),
+            card_number:z.string().max(16),
             card_owner:z.string(),
-            card_expiring_date:z.date(),
+            card_expiring_date:z.string().min(6).max(7),
             cvv:z.string().length(3,{
                 message:"CVV must contain 3 characters"
-            }),
+            }).max(4),
             userId:z.string().uuid({
                 message: 'You need to insert a valid user ID',
             }),

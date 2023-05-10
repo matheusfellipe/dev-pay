@@ -5,7 +5,7 @@ export type CheckoutProps = {
   description: string;
   card_number: string;
   card_owner: string;
-  card_expiring_date: Date;
+  card_expiring_date: string;
   cvv: string;
   userId: string;
   sellerId: string;
@@ -20,7 +20,7 @@ export class Checkout {
   public description: string;
   public card_owner: string;
   public card_number: string;
-  public card_expiring_date: Date;
+  public card_expiring_date: string;
   public cvv?: string;
   public createdAt: Date
 

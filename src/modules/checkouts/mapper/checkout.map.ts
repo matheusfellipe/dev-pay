@@ -1,12 +1,13 @@
 import { Checkout } from "../entities/checkout.entity";
-import {Checkout as CheckoutPrisma, User as UserPrisma, Seller as SellerPrisma} from "@prisma/client";
+import {Checkout as CheckoutPrisma, User as UserPrisma, Seller as SellerPrisma,Prisma} from "@prisma/client";
 import { CheckoutWithUserAndSellerDTO } from "../dto/checkout.dto";
 
 export class CheckoutMapper {
+
     static entityToPrisma = (checkout:Checkout):CheckoutPrisma=>{
         return {
             id:checkout.id,
-            price:checkout.price,
+            price:new Prisma.Decimal(checkout.price ),
             description:checkout.description,
             card_number:checkout.card_number,
             card_owner:checkout.card_owner,
@@ -17,11 +18,11 @@ export class CheckoutMapper {
 
         }
     }
-
+   
     static prismaToEntity = (checkout:CheckoutPrisma):Checkout =>{
         return {
             id:checkout.id,
-            price:checkout.price as number,
+            price:Number(checkout.price),
             description:checkout.description,
             card_number:checkout.card_number,
             card_owner:checkout.card_owner,
@@ -35,7 +36,7 @@ export class CheckoutMapper {
     static prismaToEntityIncludesUserAndSeller = (checkout:CheckoutPrisma & {user:UserPrisma}&{seller:SellerPrisma}):CheckoutWithUserAndSellerDTO=>{
         return{
             id:checkout.id,
-            price:checkout.price as number,
+            price:Number(checkout.price),
             description:checkout.description,
             card_number:checkout.card_number,
             card_owner:checkout.card_owner,

@@ -3,9 +3,9 @@ import utc from 'dayjs/plugin/utc'
 
 dayjs.extend(utc)
 
-export function formatDateHour(time: string) {
-    const date = dayjs().format('YYYY-MM-DD ') //2022-12-25
-    const dateTimeFormat = new Date(`${date} ${time}`) // 2022-12-25 23:55
+export function formatDateHour(format:string) {
+    const date = dayjs().format(format) //2022-12-25
+    const dateTimeFormat = new Date(date) // 2022-12-25 23:55
     return dayjs(dateTimeFormat)
   }
 

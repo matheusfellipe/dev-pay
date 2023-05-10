@@ -41,7 +41,7 @@ model Checkout {
   description String
   card_number String
   card_owner String
-  card_expiring_date DateTime
+  card_expiring_date String
   seller Seller @relation(fields: [sellerId],references: [id])
   sellerId String
   user User @relation(fields: [userId],references: [id])
@@ -54,7 +54,7 @@ createdAt DateTime @default(now())
 model Payable {
   id String @id @default(uuid())
   status PayableStatus @default(pending)
-  payment_date DateTime
+  payment_date String
   type_payment String
   balance Decimal
   seller Seller @relation(fields: [sellerId],references: [id])

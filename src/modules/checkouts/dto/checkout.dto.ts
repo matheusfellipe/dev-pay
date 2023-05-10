@@ -3,7 +3,7 @@ export type CheckoutWithUserAndSellerDTO = {
     description: string;
     card_number: string;
     card_owner: string;
-    card_expiring_date: Date;
+    card_expiring_date: string;
     cvv?: string;
     id: string
     userId: string
@@ -16,3 +16,5 @@ export type CheckoutWithUserAndSellerDTO = {
     }
     createdAt:Date
   }
+
+  export type CheckoutListWithUserAndSellerDTO = Array<CheckoutWithUserAndSellerDTO>
