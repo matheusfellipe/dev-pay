@@ -7,6 +7,19 @@ import { ICheckoutRepository } from "../checkout.repository";
 
 
 export class CheckoutPrismaRepository implements ICheckoutRepository{
+  async findById(checkoutId: string): Promise<Checkout|null> {
+    const checkouts = await prismaClient.checkout.findFirst({
+      where: {
+    id:checkoutId
+      },
+     
+    });
+    if(checkouts){
+
+      return CheckoutMapper.prismaToEntity(checkouts);
+    }
+    return null
+  }
    async  getAllCheckouts(userId: string, sellerId: string): Promise<Checkout[]> {
             const checkouts = await prismaClient.checkout.findMany({
               where: {

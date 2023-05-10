@@ -9,6 +9,9 @@ Npm Install
 
 Setar .env com as variavéis 
 
+Subir o container com banco e API
+docker-compose up
+
 Npm run Dev
 
 Cria usuário
@@ -21,3 +24,14 @@ Copia token retornado e utiliza como Authorization Bearer nas devidas rotas onde
 
 Rotas:
 
+Seller:
+Cria um seller
+Post('/sellers')
+
+
+Checkout:
+Cria um checkout
+Post('/checkout')
+
+Lista todas as transações 
+Get('/checkout')
