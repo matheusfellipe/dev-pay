@@ -17,4 +17,4 @@ export type CheckoutWithUserAndSellerDTO = {
     createdAt:Date
   }
 
-  export type CheckoutListWithUserAndSellerDTO = Array<CheckoutWithUserAndSellerDTO>
+  

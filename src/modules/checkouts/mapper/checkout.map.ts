@@ -52,4 +52,14 @@ export class CheckoutMapper {
             createdAt:checkout.createdAt
         }
     }
+
+    static prismaToEntityIncludesUserAndSellerArray = (
+        checkouts: (CheckoutPrisma & { user: UserPrisma } & {
+          seller: SellerPrisma;
+        })[]
+      ): CheckoutWithUserAndSellerDTO[] => {
+        return checkouts.map((checkout) =>
+          CheckoutMapper.prismaToEntityIncludesUserAndSeller(checkout)
+        );
+      };
 }

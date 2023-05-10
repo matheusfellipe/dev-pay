@@ -1,5 +1,5 @@
 import { prismaClient } from "../../../../infra/database/prisma.config";
-import { CheckoutListWithUserAndSellerDTO, CheckoutWithUserAndSellerDTO } from "../../dto/checkout.dto";
+import {  CheckoutWithUserAndSellerDTO } from "../../dto/checkout.dto";
 import { Checkout } from "../../entities/checkout.entity";
 import { CheckoutMapper } from "../../mapper/checkout.map";
 import { ICheckoutRepository } from "../checkout.repository";
@@ -7,8 +7,25 @@ import { ICheckoutRepository } from "../checkout.repository";
 
 
 export class CheckoutPrismaRepository implements ICheckoutRepository{
-    async findByUserIdOrSellerID(userId: string, sellerId: string): Promise<CheckoutListWithUserAndSellerDTO| null> {
-     const checkout = await prismaClient.checkout.findMany({
+   async  getAllCheckouts(userId: string, sellerId: string): Promise<Checkout[]> {
+            const checkouts = await prismaClient.checkout.findMany({
+              where: {
+                OR: [
+                  { userId },
+                  { sellerId },
+                ],
+              },
+              include: {
+                user: true,
+                seller: true,
+              },
+            });
+        
+            return CheckoutMapper.prismaToEntityIncludesUserAndSellerArray(checkouts);
+          }
+    
+    async findByUserIdOrSellerID(userId: string, sellerId: string): Promise<CheckoutWithUserAndSellerDTO| null> {
+     const checkout = await prismaClient.checkout.findFirst({
         where:{
             OR:[
                 {
