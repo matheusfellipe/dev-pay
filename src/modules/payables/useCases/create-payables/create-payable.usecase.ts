@@ -7,6 +7,7 @@ import { Payables, StatusProps } from "../../entities/payable.entity";
 import { IPayableRepository } from "../../repositories/payable.repository";
 import { ICheckoutRepository } from "../../../checkouts/repositories/checkout.repository";
 import { add30Days } from "../../../../utils/date";
+import { applyFee } from "../../../../utils/applyFee";
 
 
 export type CreatePayableRequest = {
@@ -28,7 +29,7 @@ export class CreatePayableUseCase {
 
     async execute(data:CreatePayableRequest){
         data.payment_date = add30Days()
-        data.balance = data.balance - (data.balance*0.5)
+        data.balance = applyFee(data.balance,5)
        
 
 
@@ -46,7 +47,7 @@ export class CreatePayableUseCase {
 
     
 
-        
+        console.log(data)
         const checkoutCreated = await this.payableRepository.save(data);
         return checkoutCreated
     }

@@ -1,4 +1,5 @@
 import { PayablePrismaRepository } from "../../../payables/repositories/implementations/payable.prisma.repository";
+import { CreatePayableUseCase } from "../../../payables/useCases/create-payables/create-payable.usecase";
 import { SellerPrismaRepository } from "../../../sellers/repositories/implementations/seller.prisma.repository";
 import { UserPrismaRepository } from "../../../users/repositories/implementations/user.prisma.repository";
 import { CheckoutPrismaRepository } from "../../repositories/implementations/checkout.prisma.repository";
@@ -10,6 +11,7 @@ const userRepository = new UserPrismaRepository()
 const sellerRepository = new SellerPrismaRepository()
 const checkoutRepository = new CheckoutPrismaRepository()
 const payableRepository = new PayablePrismaRepository()
+
 
 const createCheckoutController = new CreateCheckoutController(
     userRepository,

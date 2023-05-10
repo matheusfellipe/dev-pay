@@ -5,9 +5,10 @@ import { IUserRepository } from "../../../users/repositories/user.repository";
 import { ICheckoutRepository } from "../../repositories/checkout.repository";
 import { ISellerRepository } from "../../../sellers/repositories/seller.repository";
 import { IPayableRepository } from "../../../payables/repositories/payable.repository";
-import { formatDateHour, formatDateUTC, toDate } from "../../../../utils/date";
-import { Payables, StatusProps } from "../../../payables/entities/payable.entity";
-import { generateUUID } from "../../../../utils/generateUUID";
+import {  toDate } from "../../../../utils/date";
+import { Payables } from "../../../payables/entities/payable.entity";
+import { CreatePayableUseCase } from "../../../payables/useCases/create-payables/create-payable.usecase";
+
 
 
 export type CreateCheckoutRequest = {
@@ -27,12 +28,12 @@ export class CreateCheckoutUseCase {
         private userRepository:IUserRepository,
         private sellerRepository:ISellerRepository,
         private checkoutRepository: ICheckoutRepository,
-        private payableRepository:IPayableRepository
+        private payableRepository: IPayableRepository
     ){}
 
     async execute(data:CreateCheckoutRequest){
         const checkout = new Checkout(data);
-      
+        const createPayableUseCase = new CreatePayableUseCase(this.payableRepository,this.sellerRepository,this.checkoutRepository);
 
         const user = await this.userRepository.findById(data.userId)
 
@@ -55,8 +56,8 @@ export class CreateCheckoutUseCase {
             type_payment:'credit_card',
             payment_date: toDate(data.createdAt),
         })
-      
-        await this.payableRepository.save(payable);
+        
+        await createPayableUseCase.execute(payable);
         return checkoutCreated
     }
 }

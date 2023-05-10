@@ -12,6 +12,7 @@ import { ICheckoutRepository } from "../../repositories/checkout.repository";
 import { validatorSchema } from '../../../../infra/shared/validator/zod'
 import { ValidationSchemaError } from '../../../../errors/validation-schema.error'
 import { IPayableRepository } from '../../../payables/repositories/payable.repository';
+import { CreatePayableUseCase } from '../../../payables/useCases/create-payables/create-payable.usecase';
 
 
 export class CreateCheckoutController{
