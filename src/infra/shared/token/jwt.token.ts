@@ -3,7 +3,7 @@ import { sign, verify } from "jsonwebtoken";
 import { createHmac } from "crypto";
 
 import { User } from "@prisma/client";
-import { IToken, TokerUser } from "./token";
+import { IToken, TokenUser } from "./token";
 
 export class JWTToken implements IToken {
  
@@ -21,9 +21,9 @@ private TOKEN_SECRET_CRYPTO = createHmac('sha256',this.TOKEN_SECRET).digest('bas
             return token
     }
 
-    validate(token: string): TokerUser|null {
+    validate(token: string): TokenUser|null {
         try {
-            return verify(token,this.TOKEN_SECRET_CRYPTO) as TokerUser
+            return verify(token,this.TOKEN_SECRET_CRYPTO) as TokenUser
 
            
         } catch (error) {
