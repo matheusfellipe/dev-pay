@@ -9,4 +9,5 @@ COPY . .
 EXPOSE 3000
 
 RUN npx prisma generate
-CMD npm dev
+RUN npx prisma migrate devimage.png
+CMD npm run dev

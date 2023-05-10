@@ -1,17 +1,12 @@
-version: '3'
+version: "3.9"
 
-services:      
-  build:
-      dockerfile: Dockerfile
-      context: .
-      depends_on: 
-            - db
-      environment: 
-            DATABASE_URL: postgres://user:password@postgres:5432/db
-            NODE_ENV: development
-            PORT: 3000
-            ports:
-            - "8080:3000"
+services:
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8000:3000"
   db:
     image: postgres:latest
     restart: always

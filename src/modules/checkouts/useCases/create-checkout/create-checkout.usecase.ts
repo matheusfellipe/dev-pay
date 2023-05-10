@@ -33,11 +33,11 @@ export class CreateCheckoutUseCase {
         const seller = await this.sellerRepository.findById(data.sellerId);
 
         if(!user){
-            throw new CustomError('User doens not exists!',400);
+            throw new CustomError('User does not exists!',400);
         }
 
         if(!seller){
-            throw new CustomError('Seller doens not exists!',400);
+            throw new CustomError('Seller does not exists!',400);
         }
 
         const checkoutCreated = await this.checkoutRepository.save(checkout);

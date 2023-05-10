@@ -2,12 +2,13 @@ import { CustomError } from "../../../../errors/custom.error";
 import { User } from "../../entities/user.entity";
 import { IUserRepository } from "../../repositories/user.repository";
 import { UserDTO } from "../../dto/create-user.dto";
+import { IPasswordCrypto } from "../../../../infra/shared/crypto/password.crypto";
 
 
 
 export class CreateUserUseCase {
    
-    constructor(private userRepository: IUserRepository){
+    constructor(private userRepository: IUserRepository,private passwordCrypto:IPasswordCrypto){
 
     }
 
@@ -24,6 +25,8 @@ export class CreateUserUseCase {
         }
       
         const user = new User(data);
+        const passwordHashed = await this.passwordCrypto.hash(data.password);
+        user.password = passwordHashed
         const userCreated = await this.userRepository.save(user);
 
         return userCreated

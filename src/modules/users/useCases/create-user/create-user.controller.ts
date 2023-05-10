@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import { logger } from "../../../../utils/logger";
 import { IUserRepository } from "../../repositories/user.repository";
 import { CreateUserUseCase } from "./create-user.usecase";
+import { IPasswordCrypto } from "../../../../infra/shared/crypto/password.crypto";
 
 
 export class CreateUserController {
-    constructor(private userRepository: IUserRepository){}
+    constructor(private userRepository: IUserRepository,private passwordCrypto:IPasswordCrypto){}
 
 
     async handle(request: Request, response: Response) {
@@ -15,7 +16,7 @@ export class CreateUserController {
             const data = request.body;
             const useCase = new CreateUserUseCase(
                 this.userRepository,
-               
+               this.passwordCrypto
             );
             const result = await useCase.execute(data);
 
