@@ -11,13 +11,15 @@ import { ICheckoutRepository } from "../../repositories/checkout.repository";
 
 import { validatorSchema } from '../../../../infra/shared/validator/zod'
 import { ValidationSchemaError } from '../../../../errors/validation-schema.error'
+import { IPayableRepository } from '../../../payables/repositories/payable.repository';
 
 
 export class CreateCheckoutController{
     constructor(
         private userRepository:IUserRepository,
         private sellerRepository:ISellerRepository,
-        private checkoutRepository:ICheckoutRepository
+        private checkoutRepository:ICheckoutRepository,
+        private payableRepository:IPayableRepository
     ){}
 
     async handle(request: Request, response: Response){
@@ -46,7 +48,8 @@ export class CreateCheckoutController{
             const createCheckoutUseCase = new CreateCheckoutUseCase(
                 this.userRepository,
                 this.sellerRepository,
-                this.checkoutRepository
+                this.checkoutRepository,
+                this.payableRepository
             )
             const checkoutCreated = await createCheckoutUseCase.execute(body)
             return response.json(checkoutCreated)

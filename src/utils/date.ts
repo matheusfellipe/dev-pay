@@ -36,3 +36,7 @@ export function getDayOfWeek(date: string) {
   export function endOfDay() {
     return dayjs().utc().endOf('D').toDate()
   }
+
+  export function add30Days() {
+    return dayjs().add(30, 'day').toDate();
+  }

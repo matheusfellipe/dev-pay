@@ -1,12 +1,12 @@
 import { Payables } from "../entities/payable.entity";
-import {Payable as PayablePrisma, Seller as SellerPrisma,Checkout as CheckoutPrisma} from "@prisma/client";
+import {Payable as PayablePrisma, Seller as SellerPrisma,Checkout as CheckoutPrisma,Prisma} from "@prisma/client";
 import { PayableWithSellerDTO } from "../dto/payable.dto";
 
 export class PayableMapper {
     static entityToPrisma = (payable:Payables):PayablePrisma=>{
         return {
             id:payable.id,
-            balance:payable.balance,
+            balance:new Prisma.Decimal(payable.balance),
             status:payable.status,
             type_payment:payable.type_payment,
             payment_date:payable.payment_date,
@@ -19,7 +19,7 @@ export class PayableMapper {
     static prismaToEntity = (payable:PayablePrisma):Payables =>{
         return {
             id:payable.id,
-            balance:payable.balance as number,
+            balance:Number(payable.balance) ,
             status:payable.status,
             type_payment:payable.type_payment,
             payment_date:payable.payment_date,
@@ -31,7 +31,7 @@ export class PayableMapper {
     static prismaToEntityIncludesCheckoutAndSeller = (payable:PayablePrisma & {checkout:CheckoutPrisma}&{seller:SellerPrisma}):PayableWithSellerDTO=>{
         return{
             id:payable.id,
-            balance:payable.balance as number,
+            balance:Number(payable.balance),
             status:payable.status,
             type_payment:payable.type_payment,
             payment_date:payable.payment_date,

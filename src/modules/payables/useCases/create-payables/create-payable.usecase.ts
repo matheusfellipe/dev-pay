@@ -6,9 +6,11 @@ import { ISellerRepository } from "../../../sellers/repositories/seller.reposito
 import { Payables, StatusProps } from "../../entities/payable.entity";
 import { IPayableRepository } from "../../repositories/payable.repository";
 import { ICheckoutRepository } from "../../../checkouts/repositories/checkout.repository";
+import { add30Days } from "../../../../utils/date";
 
 
 export type CreatePayableRequest = {
+    id:string;
     status: StatusProps;
     payment_date: Date;
     type_payment: string;
@@ -25,7 +27,9 @@ export class CreatePayableUseCase {
     ){}
 
     async execute(data:CreatePayableRequest){
-        const payable = new Payables(data);
+        data.payment_date = add30Days()
+        data.balance = data.balance - (data.balance*0.5)
+       
 
 
         const seller = await this.sellerRepository.findById(data.sellerId);
@@ -40,12 +44,10 @@ export class CreatePayableUseCase {
             throw new CustomError('Checkout does not exists!',400);
         }
 
-        if(payable.type_payment='credit_card'){
-            return payable.balance = payable.balance - (payable.balance * 0.5);
-        }
+    
 
         
-        const checkoutCreated = await this.payableRepository.save(payable);
+        const checkoutCreated = await this.payableRepository.save(data);
         return checkoutCreated
     }
 }

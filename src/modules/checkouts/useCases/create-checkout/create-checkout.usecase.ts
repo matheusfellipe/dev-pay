@@ -1,10 +1,13 @@
 import { CustomError } from "../../../../errors/custom.error";
-import { User } from "../../../users/entities/user.entity";
-import { Seller } from "../../../sellers/entities/seller.entity";
+
 import { Checkout } from "../../entities/checkout.entity";
 import { IUserRepository } from "../../../users/repositories/user.repository";
 import { ICheckoutRepository } from "../../repositories/checkout.repository";
 import { ISellerRepository } from "../../../sellers/repositories/seller.repository";
+import { IPayableRepository } from "../../../payables/repositories/payable.repository";
+import { formatDateHour, formatDateUTC, toDate } from "../../../../utils/date";
+import { Payables, StatusProps } from "../../../payables/entities/payable.entity";
+import { generateUUID } from "../../../../utils/generateUUID";
 
 
 export type CreateCheckoutRequest = {
@@ -23,11 +26,13 @@ export class CreateCheckoutUseCase {
     constructor(
         private userRepository:IUserRepository,
         private sellerRepository:ISellerRepository,
-        private checkoutRepository: ICheckoutRepository
+        private checkoutRepository: ICheckoutRepository,
+        private payableRepository:IPayableRepository
     ){}
 
     async execute(data:CreateCheckoutRequest){
         const checkout = new Checkout(data);
+      
 
         const user = await this.userRepository.findById(data.userId)
 
@@ -42,8 +47,16 @@ export class CreateCheckoutUseCase {
         }
         const lastCardNumberDigits = checkout.card_number.slice(checkout.card_number.length-4)
         checkout.card_number = lastCardNumberDigits
-
         const checkoutCreated = await this.checkoutRepository.save(checkout);
+        const payable = new Payables({balance:data.price,
+            sellerId:data.sellerId,
+            checkoutId:checkoutCreated.id,
+            status:"pending",
+            type_payment:'credit_card',
+            payment_date: toDate(data.createdAt),
+        })
+      
+        await this.payableRepository.save(payable);
         return checkoutCreated
     }
 }
