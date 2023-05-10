@@ -46,4 +46,11 @@ export class PayableMapper {
           
         }
     }
-}
+
+    static prismaToEntityIncludesCheckoutAndSellerArray = (payable:(PayablePrisma & {checkout:CheckoutPrisma}&{seller:SellerPrisma})[]):PayableWithSellerDTO[]=>{
+        return payable.map((item)=>
+        PayableMapper.prismaToEntityIncludesCheckoutAndSeller(item)
+        );
+          
+        };
+    }

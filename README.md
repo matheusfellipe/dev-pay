@@ -35,3 +35,5 @@ Post('/checkout')
 
 Lista todas as transações 
 Get('/checkout')
+
+npx prisma studio visualiza o banco
